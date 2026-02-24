@@ -14,11 +14,26 @@ Returns:
 
 CORS headers are enabled (`Access-Control-Allow-Origin: *`) and `OPTIONS` requests return `204` for preflight support.
 
+## Authentication
+
+This Worker requires an API key.
+
+Send it in either:
+
+- `X-API-Key: <token>`
+- `Authorization: Bearer <token>`
+
+Example:
+
+```bash
+curl -H "X-API-Key: $API_KEY" https://uuid.alohacraft.ai/
+```
+
 ## Deploy (Cloudflare Workers)
 
 This repo is configured for Wrangler with:
 
-- `name = "uuid-generator"`
+- `name = "uuid-generator-v1"`
 - `main = "index.ts"`
 
 ### Prereqs
@@ -43,6 +58,14 @@ wrangler login
 
 ```bash
 wrangler deploy
+```
+
+### Set the API key secret
+
+Set the secret named `API_KEY` (required for auth):
+
+```bash
+wrangler secret put API_KEY
 ```
 
 ## Local development
